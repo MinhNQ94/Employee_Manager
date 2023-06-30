@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\MISA.DAOTAO.API.props" />
-</Project>

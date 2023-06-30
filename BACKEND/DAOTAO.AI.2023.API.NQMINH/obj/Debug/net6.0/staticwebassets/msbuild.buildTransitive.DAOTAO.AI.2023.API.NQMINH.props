@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\DAOTAO.AI.2023.API.NQMINH.props" />
+</Project>

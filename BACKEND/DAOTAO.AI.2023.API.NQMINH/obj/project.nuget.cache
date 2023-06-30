@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "WKNGiXkdmboHRMshiUlEsWcTlzya5iz3Kd/xi8TIn7jC01Y0kKUJKE+0hsZhI7bRJTF+JSe5Yrk4ozPcBwcC5A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Quang Minh\\Downloads\\NOP_BAI-20230630T034921Z-001\\NOP_BAI\\DAOTAO.AI.2023.NQMINH\\Code BackEnd\\DAOTAO.AI.2023.API.NQMINH\\DAOTAO.AI.2023.API.NQMINH.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Quang Minh\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\Quang Minh\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Quang Minh\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Quang Minh\\.nuget\\packages\\mysqlconnector\\2.2.5\\mysqlconnector.2.2.5.nupkg.sha512",
+    "C:\\Users\\Quang Minh\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Quang Minh\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Quang Minh\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Quang Minh\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}

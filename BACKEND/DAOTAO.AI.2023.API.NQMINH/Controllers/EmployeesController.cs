@@ -258,10 +258,10 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
         [Route("{employeeID}")]
         public IActionResult UpdateEmployee([FromRoute] Guid employeeID, [FromBody] Employee employee)
         {
+            string connectionString = "Server=18.179.16.166;Port=3306;Database=DAOTAO.AI.2023.NQMINH;Uid=nvmanh;Pwd=12345678";
+            var mySqlConnection = new MySqlConnection(connectionString);
             try
             {
-                string connectionString = "Server=18.179.16.166;Port=3306;Database=DAOTAO.AI.2023.NQMINH;Uid=nvmanh;Pwd=12345678";
-                var mySqlConnection = new MySqlConnection(connectionString);
                 string updateEmployeeCommand = "UPDATE employee e SET EmployeeCode = @EmployeeCode, EmployeeName = @EmployeeName, Gender = @Gender, DateOfBirth = @DateOfBirth, IdentityNumber = @IdentityNumber, IdentityIssuedDate = @IdentityIssuedDate, IdentityIssuedPlace = @IdentityIssuedPlace, DepartmentID = @DepartmentID, DepartmentName = @DepartmentName, PositionID = @PositionID, PositionName = @PositionName, MobilePhone = @MobilePhone, Telephone = @Telephone, Address = @Address, Email = @Email, BankAccount = @BankAccount, BankName = @BankName, Branch = @Branch, CreatedBy = @CreatedBy, CreatedDate = @CreatedDate, ModifiedBy = @ModifiedBy, ModifiedDate = @ModifiedDate WHERE EmployeeID = @EmployeeID";
 
                 var employeeId = Guid.NewGuid();

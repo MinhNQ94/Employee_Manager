@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WKNGiXkdmboHRMshiUlEsWcTlzya5iz3Kd/xi8TIn7jC01Y0kKUJKE+0hsZhI7bRJTF+JSe5Yrk4ozPcBwcC5A==",
+  "dgSpecHash": "oAyXEiVhSmqE7CC6VKGfPgD3l4LVDKtIbPTrNWJGdMxacVrPAUILN7y2x2oUozRILAOjFd5G1XJQWbDXnHzqbA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Quang Minh\\Downloads\\NOP_BAI-20230630T034921Z-001\\NOP_BAI\\DAOTAO.AI.2023.NQMINH\\Code BackEnd\\DAOTAO.AI.2023.API.NQMINH\\DAOTAO.AI.2023.API.NQMINH.csproj",
+  "projectFilePath": "D:\\Cài đặt\\Of Minh\\Of Minh\\Project Misa\\AMIS\\BACKEND\\DAOTAO.AI.2023.API.NQMINH\\DAOTAO.AI.2023.API.NQMINH.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Quang Minh\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\Quang Minh\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",

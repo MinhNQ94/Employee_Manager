@@ -185,146 +185,57 @@
 
                 <div class="content__area--body">
                     <div class="area--body__data">
-                        <div class="area--body__data-wrap-search">
-                            <input type="search" class="input__data-search" placeholder="Tìm theo mã, tên nhân viên">
-                            <div class="data-search__icon icon-sprites icon-16"></div>
+                        <div class="database-search">
+                            <form action="/search" method="get">
+                                <input class="search expandright" data-search id="database-form" placeholder="Tìm kiếm...">
+                                <label class="button searchbutton" for="database-form"><span class="mglass">&#9906;</span></label>
+                            </form>
                         </div>
-                        <div class="area--body__data-reload icon-sprites icon-24"></div>
+                        <div id="btnRefresh" class="area--body__data-reload icon-sprites icon-24"></div>
                     </div>
 
                     <table class="content__area--table" id="tableEmployee">
                         <thead align="left">
                             <tr class="area__table--head">
-                                <th propValue="checkbox" format="checkbox" id="check-all" class="text-align-center" style="width: 48px"><input type="checkbox" name="" id=""></th>
-                                <th propValue="employeeCode" class="padding-left-8" style="width: 118px">MÃ NHÂN VIÊN</th>
-                                <th propValue="employeeName" class="padding-left-8" style="width: 170px">TÊN NHÂN VIÊN</th>
-                                <th propValue="gender" format="gender" class="padding-left-8" style="width: 89px">GIỚI TÍNH</th>
-                                <th propValue="dateOfBirth" format="date" class="text-align-center" style="width: 119px">NGÀY SINH</th>
-                                <th propValue="identityNumber" class="padding-left-8" style="width: 100px">SỐ CMND</th>
-                                <th propValue="positionName" class="padding-left-8" style="width: 180px">CHỨC DANH</th>
-                                <th propValue="departmentName" class="padding-left-8" style="width: 190px">TÊN ĐƠN VỊ</th>
-                                <th propValue="bankAccount" class="padding-left-8" style="width: 150px">SỐ TÀI KHOẢN</th>
-                                <th propValue="bankName" class="padding-left-8" style="width: 180px">TÊN NGÂN HÀNG</th>
-                                <th propValue="branch" class="padding-left-8" style="width: 169px">CHI NHÁNH TK NGÂN HÀNG</th>
-                                <th propValue="fix" format="fix" class="text-align-center border-right-none" style="width: 120px">CHỨC NĂNG</th>
+                                <th propValue="sort" format="checkbox" id="select-input" class="text-align-center" style="width: 48px"><input type="checkbox" name="" id=""></th>
+                                <th propValue="employeeCode" format="format" id="emp-input" class="padding-left-8" style="width: 118px">MÃ NHÂN VIÊN</th>
+                                <th propValue="employeeName" format="format" id="name-input" class="padding-left-8" style="width: 170px">TÊN NHÂN VIÊN</th>
+                                <th propValue="gender" format="gender" id="gender-input" class="text-align-center" style="width: 89px">GIỚI TÍNH</th>
+                                <th propValue="dateOfBirth" format="date" id="birth-input" class="text-align-center" style="width: 119px">NGÀY SINH</th>
+                                <th propValue="identityNumber" format="format" id="ident-input" class="padding-left-8" style="width: 100px">SỐ CMND</th>
+                                <th propValue="positionName" format="format" id="pos-input" class="padding-left-8" style="width: 180px">CHỨC DANH</th>
+                                <th propValue="departmentName" format="format" id="dept-input" class="padding-left-8" style="width: 190px">TÊN ĐƠN VỊ</th>
+                                <th propValue="bankAccount" format="format" id="accnum-input" class="padding-left-8" style="width: 150px">SỐ TÀI KHOẢN</th>
+                                <th propValue="bankName" format="format" id="bank-input" class="padding-left-8" style="width: 180px">TÊN NGÂN HÀNG</th>
+                                <th propValue="branch" format="format" id="branch-input" class="padding-left-8" style="width: 169px">CHI NHÁNH TK NGÂN HÀNG</th>
+                                <th propValue="function" format="function" id="funct-input" class="text-align-center border-right-none" style="width: 120px">CHỨC NĂNG</th>
                             </tr>
                         </thead>
-
-                        <tbody align="left">
-                            <tr class="area__table--body">
-                                <td class="text-align-center"><input type="checkbox" name="" id=""></td>
-                                <td class="padding-left-8">00012</td>
-                                <td class="padding-left-8">Nguyễn Quang Minh</td>
-                                <td class="padding-left-8">Nam</td>
-                                <td class="text-align-center">13/5/1994</td>
-                                <td class="padding-left-8">111111111</td>
-                                <td class="padding-left-8">Nhân Viên</td>
-                                <td class="padding-left-8">Kho</td>
-                                <td class="padding-left-8">43220000567890</td>
-                                <td class="padding-left-8">Ngân hàng nhà nước</td>
-                                <td class="padding-left-8"></td>
-                                <td class="text-align-center border-right-none">
-                                    <div class="td--wrap">
-                                        <div class="td--fix">Sửa</div>
-                                        <div id="td--fix__icon" class="td--fix__icon icon-sprites icon-14"></div>
-                                    </div>
-                                </td>
-                                <!-- Context Menu -->
-                                <div class="context-menu" id="context-menu">
-                                    <ul class="context__list">
-                                        <li class="context__list--item">Nhân bản</li>
-                                        <li class="context__list--item">Xoá</li>
-                                        <li class="context__list--item">Ngừng sử dụng</li>
-                                    </ul>
-                                </div>
-                            </tr>
-
-                            <tr class="area__table--body">
-                                <td class="text-align-center"><input type="checkbox" name="" id=""></td>
-                                <td class="padding-left-8">00012</td>
-                                <td class="padding-left-8">Nguyễn Quang Minh</td>
-                                <td class="padding-left-8">Nam</td>
-                                <td class="text-align-center">13/5/1994</td>
-                                <td class="padding-left-8">111111111</td>
-                                <td class="padding-left-8">Nhân Viên</td>
-                                <td class="padding-left-8">Kho</td>
-                                <td class="padding-left-8">43220000567890</td>
-                                <td class="padding-left-8">Ngân hàng nhà nước</td>
-                                <td class="padding-left-8"></td>
-                                <td class="text-align-center border-right-none">
-                                    <div class="td--wrap">
-                                        <div class="td--fix">Sửa</div>
-                                        <div class="td--fix__icon icon-sprites icon-14"></div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="area__table--body">
-                                <td class="text-align-center"><input type="checkbox" name="" id=""></td>
-                                <td class="padding-left-8">00012</td>
-                                <td class="padding-left-8">Nguyễn Quang Minh</td>
-                                <td class="padding-left-8">Nam</td>
-                                <td class="text-align-center">13/5/1994</td>
-                                <td class="padding-left-8">111111111</td>
-                                <td class="padding-left-8">Nhân Viên</td>
-                                <td class="padding-left-8">Kho</td>
-                                <td class="padding-left-8">43220000567890</td>
-                                <td class="padding-left-8">Ngân hàng nhà nước</td>
-                                <td class="padding-left-8"></td>
-                                <td class="text-align-center border-right-none">
-                                    <div class="td--wrap">
-                                        <div class="td--fix">Sửa</div>
-                                        <div class="td--fix__icon icon-sprites icon-14"></div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="area__table--body">
-                                <td class="text-align-center"><input type="checkbox" name="" id=""></td>
-                                <td class="padding-left-8">00012</td>
-                                <td class="padding-left-8">Nguyễn Quang Minh</td>
-                                <td class="padding-left-8">Nam</td>
-                                <td class="text-align-center">13/5/1994</td>
-                                <td class="padding-left-8">111111111</td>
-                                <td class="padding-left-8">Nhân Viên</td>
-                                <td class="padding-left-8">Kho</td>
-                                <td class="padding-left-8">43220000567890</td>
-                                <td class="padding-left-8">Ngân hàng nhà nước</td>
-                                <td class="padding-left-8"></td>
-                                <td class="text-align-center border-right-none">
-                                    <div class="td--wrap">
-                                        <div class="td--fix">Sửa</div>
-                                        <div class="td--fix__icon icon-sprites icon-14"></div>
-
-                                    </div>
-                                </td>
-                            </tr>
-
-
+                        <tbody>
+                            
                         </tbody>
                     </table>
-
-                    <div class="content__footer">
-                        <div class="content__footer--total-record">
-                            Tổng số: <b>200</b> bản ghi
-                        </div>
-
-                        <div class="content__footer--pagination">
-                            <select class="pagination__combobox" name="room" id="pagination__combobox">
-                                <option value="1">10 Bản ghi trên 1 trang</option>
-                                <option value="2">20 Bản ghi trên 1 trang</option>
-                                <option value="3">30 Bản ghi trên 1 trang</option>
-                                <option value="3">50 Bản ghi trên 1 trang</option>
-                                <option value="3">100 Bản ghi trên 1 trang</option>
-                            </select>
-                            <div class="pagination__button">
-                                <button class="btn-s btn-margin-left btn-hide">Trước</button>
-                                <button class="btn-s btn-margin-left btn-border"><b>1</b></button>
-                                <button class="btn-s btn-margin-left">2</button>
-                                <button class="btn-s btn-margin-left">...</button>
-                                <button class="btn-s btn-margin-left">100</button>
-                                <button class="btn-s btn-margin-left">Sau</button>
-                            </div>
+                </div>
+                
+                <div class="content__footer">
+                    <div id="totalPage" class="totalPage"></div>
+        
+                    <div class="content__footer--pagination">
+                        <select class="pagination__combobox" name="room" id="pagination__combobox">
+                            <option value="10">10 Bản ghi trên 1 trang</option>
+                            <option value="20">20 Bản ghi trên 1 trang</option>
+                            <option value="30">30 Bản ghi trên 1 trang</option>
+                            <option value="50">50 Bản ghi trên 1 trang</option>
+                            <option value="100">100 Bản ghi trên 1 trang</option>
+                        </select>
+                        <div class="pagination__button">
+                            <button id="skip-back" class="btn-s btn-margin-left btn-hide">Trước</button>
+                            <button id="1-page" class="btn-s btn-margin-left"><b>1</b></button>
+                            <button id="2-page" class="btn-s btn-margin-left">2</button>
+                            <button id="3-page" class="btn-s btn-margin-left">3</button>
+                            <button id="4-page" class="btn-s btn-margin-left">4</button>
+                            <button id="5-page" class="btn-s btn-margin-left">5</button>
+                            <button id="skip-forward" class="btn-s btn-margin-left">Sau</button>
                         </div>
                     </div>
                 </div>
@@ -338,12 +249,12 @@
             <div class="dialog__header--select">
                 <div class="dialog__header--info">Thông tin nhân viên</div>
                 <div class="dialog__header--input">
-                    <input type="checkbox" class="dialog__header--input-checkbox" name="customer" checked>
+                    <input id="checkbox" type="checkbox" class="dialog__header--input-checkbox" name="customer" checked="checked">
                     <label for="customer">Là khách hàng</label>
                 </div>
 
                 <div class="dialog__header--input">
-                    <input type="checkbox" class="dialog__header--input-checkbox" name="supplier">
+                    <input type="checkbox" class="dialog__header--input-checkbox" name="supplier" checked="checked">
                     <label for="supplier">Là nhà cung cấp</label>
                 </div>
             </div>
@@ -384,7 +295,7 @@
                 <div class="dialog__content--right-1">
                     <div class="dialog__content--birth">
                         <div class="employeeBirth">Ngày sinh</div>
-                        <input type="date" class="employee-input" propValue="dateOfBirth">
+                        <input id="dateOfBirth" format="date" input type="text" class="employee-input" propValue="dateOfBirth" name="add-character-form" placeholder="DD/MM/YYYY" required >
                     </div>
                     <div class="dialog__content--gender">
                         <div class="employeeGender">Giới tính</div>
@@ -408,7 +319,7 @@
                     </div>
                     <div class="dialog__content--date">
                         <div class="employeeDate">Ngày cấp</div>
-                        <input type="date" class="employee-input" propValue="identityIssuedDate">
+                        <input id="issuedDate" input type="text" format="date" class="employee-input" propValue="identityIssuedDate" name="add-character-form" placeholder="DD/MM/YYYY">
                     </div>
                 </div>
 
@@ -472,11 +383,11 @@
 
     </div>
     <!-- Dialog Warning -->
-    <div class="dialog toast-messenger">
+    <div class="toast-messenger">
         <div class="toast__body">
             <div class="toast__body--wrap">
                 <div class="toast__body--warning icon-sprites icon-48"></div>
-                <div class="toast__body--msg">Mã nhân viên &lt;NV-00001&gt; đã tồn tại trong hệ thống, vui lòng kiểm tra lại</div>
+                <div class="toast__body--msg">Cảnh báo</div>
             </div>
         </div>
         <div class="toast__close flex-end">
@@ -487,32 +398,34 @@
     </div>
 
     <!-- Dialog Delete -->
-    <div class="dialog toast-messenger">
+    <div class="toast-messenger" id="dlgDel">
         <div class="toast__body">
             <div class="toast__body--wrap">
                 <div class="toast__body--warning icon-sprites icon-48"></div>
-                <div class="toast__body--msg">Bạn có thực sự muốn xoá nhân viên &lt;NV-00001&gt; không</div>
+                <div class="toast__body--msg">Cảnh báo</div>
             </div>
         </div>
+        <div id="empCode" class="toast__body--content"></div>
         <div class="toast__close msg__delete">
-            <button class="btn">
-                Có
-            </button>
             <button class="btn__close btn-cancel">
                 Không
+            </button>
+            <button id="del-agree" class="btn" type="submit">
+                Có
             </button>
         </div>
 
     </div>
 
     <!-- Dialog Error -->
-    <div class="dialog toast-messenger">
+    <div class="toast-messenger" id="dlgError">
         <div class="toast__body flex-start">
             <div class="toast__body--wrap">
                 <div class="toast__body--error icon-sprites icon-48"></div>
-                <div class="toast__body--msg">Tên không được để trống</div>
+                <div class="toast__body--msg">Lỗi</div>
             </div>
         </div>
+        <div id="toast-error__content" class="toast__body--content"></div>
         <div class="toast__close center">
             <button class="btn__close btn">
                 Đóng

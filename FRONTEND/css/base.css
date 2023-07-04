@@ -174,3 +174,8 @@ tbody tr:hover {
 tbody tr.row-selected {
     background-color: var(--primary-color);
 }
+
+.bold{
+    margin: 0 4px;
+    font-weight: 600;
+}

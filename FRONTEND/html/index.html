@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/style.css">
+    <script src="../assets/vendor/fontawesome/js/all.min.js"></script>
     <title>Document</title>
 </head>
 
@@ -163,7 +164,7 @@
             <div class="content__header">
                 <div class="content__header--navbar">
                     <div class="navbar__icon--three-stripes icon-sprites icon-24"></div>
-                    <div class="navbar__branch">CÔNG TY TNHH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUI PHÚC</div>
+                <div class="navbar__branch">CÔNG TY TNHH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUANG MINH</div>
                     <div class="navbar__icon--chevron-right icon-sprites icon-14"></div>
                 </div>
 
@@ -194,7 +195,7 @@
                         <div id="btnRefresh" class="area--body__data-reload icon-sprites icon-24"></div>
                     </div>
 
-                    <table class="content__area--table" id="tableEmployee">
+                    <table id="tableEmployee" class="content__area--table">
                         <thead align="left">
                             <tr class="area__table--head">
                                 <th propValue="sort" format="checkbox" id="select-input" class="text-align-center" style="width: 48px"><input type="checkbox" name="" id=""></th>
@@ -202,8 +203,8 @@
                                 <th propValue="employeeName" format="format" id="name-input" class="padding-left-8" style="width: 170px">TÊN NHÂN VIÊN</th>
                                 <th propValue="gender" format="gender" id="gender-input" class="text-align-center" style="width: 89px">GIỚI TÍNH</th>
                                 <th propValue="dateOfBirth" format="date" id="birth-input" class="text-align-center" style="width: 119px">NGÀY SINH</th>
-                                <th propValue="identityNumber" format="format" id="ident-input" class="padding-left-8" style="width: 100px">SỐ CMND</th>
-                                <th propValue="positionName" format="format" id="pos-input" class="padding-left-8" style="width: 180px">CHỨC DANH</th>
+                                <th propValue="identityNumber" format="format" id="ident-input" class="padding-left-8" style="width: 120px">SỐ CMND</th>
+                                <th propValue="positionName" format="format" id="pos-input" class="padding-left-8" style="width: 160px">CHỨC DANH</th>
                                 <th propValue="departmentName" format="format" id="dept-input" class="padding-left-8" style="width: 190px">TÊN ĐƠN VỊ</th>
                                 <th propValue="bankAccount" format="format" id="accnum-input" class="padding-left-8" style="width: 150px">SỐ TÀI KHOẢN</th>
                                 <th propValue="bankName" format="format" id="bank-input" class="padding-left-8" style="width: 180px">TÊN NGÂN HÀNG</th>
@@ -218,7 +219,7 @@
                 </div>
                 
                 <div class="content__footer">
-                    <div id="totalPage" class="totalPage"></div>
+                    <div id="totalpage" class="totalpage"></div>
         
                     <div class="content__footer--pagination">
                         <select class="pagination__combobox" name="room" id="pagination__combobox">
@@ -244,7 +245,7 @@
     </div>
 
     <!-- Dialog thông tin nhân viên -->
-    <div id="dialog" class="dialog dialogEmployee">
+    <div id="dialog" class="dialog dialogEmployee" hidden>
         <div class="dialog__header">
             <div class="dialog__header--select">
                 <div class="dialog__header--info">Thông tin nhân viên</div>
@@ -377,19 +378,20 @@
 
             <div class="dialog__footer--saved">
                 <button id="btnSave" class="btn-cancel">Cất</button>
-                <button id="btnAdd" class="btn">Cất và Thêm</button>
+                <button id="btnAdd" class="btn" type="submit">Cất và Thêm</button>
             </div>
         </div>
 
     </div>
     <!-- Dialog Warning -->
-    <div class="toast-messenger">
+    <div class="toast-messenger" id="dlgMess" hidden>
         <div class="toast__body">
             <div class="toast__body--wrap">
-                <div class="toast__body--warning icon-sprites icon-48"></div>
-                <div class="toast__body--msg">Cảnh báo</div>
+                <div class="toast__body--mess icon-sprites icon-48"></div>
+                <div class="toast__body--msg">Thông báo</div>
             </div>
         </div>
+        <div id="empCode--mess" class="toast__body--content"></div>
         <div class="toast__close flex-end">
             <button class="btn__close btn">
                 Đóng
@@ -398,7 +400,7 @@
     </div>
 
     <!-- Dialog Delete -->
-    <div class="toast-messenger" id="dlgDel">
+    <div class="toast-messenger" id="dlgDel" hidden>
         <div class="toast__body">
             <div class="toast__body--wrap">
                 <div class="toast__body--warning icon-sprites icon-48"></div>
@@ -407,7 +409,7 @@
         </div>
         <div id="empCode" class="toast__body--content"></div>
         <div class="toast__close msg__delete">
-            <button class="btn__close btn-cancel">
+            <button id="del-cancel" class="btn__close btn-cancel">
                 Không
             </button>
             <button id="del-agree" class="btn" type="submit">
@@ -418,7 +420,7 @@
     </div>
 
     <!-- Dialog Error -->
-    <div class="toast-messenger" id="dlgError">
+    <div class="toast-messenger" id="dlgError" hidden>
         <div class="toast__body flex-start">
             <div class="toast__body--wrap">
                 <div class="toast__body--error icon-sprites icon-48"></div>

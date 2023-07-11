@@ -317,11 +317,6 @@
     border-collapse: collapse;
 }
 
-.area__table--head th,
-.area__table--body td {
-    height: 48px;
-}
-
 tbody td {
     font-size: 1.3rem;
 }
@@ -589,7 +584,7 @@ span {
     margin-right: 8px;
 }
 
-.totalPage{
+.totalpage{
     font-size: 1.6rem;
     margin-left: 24px;
     display: flex;
@@ -598,6 +593,10 @@ span {
 }
 
 /* Toast */
+
+.toast__body--mess {
+    background-position: -666px -456px;
+}
 
 .toast__body--warning {
     background-position: -592px -456px;
@@ -652,6 +651,7 @@ span {
 /* Dropdown Menu */
 .dropdown{
     display: inline-block;
+    position: relative;
 }
 .drop-interact{
     display: flex;
@@ -661,7 +661,6 @@ span {
     color: #003d83;
 }
 .dropdown-content{
-    position: absolute;
     right: 56px;
     background-color: #f1f1f1;
     width: 160px;
@@ -675,7 +674,7 @@ span {
     display: block;
 }
 .dropdown-content a:hover{
-    background-color: var(--primary-color);
+    background-color: var(--white-color);
 }
 .dropdown-text{
     margin: 0 12px 0 8px;

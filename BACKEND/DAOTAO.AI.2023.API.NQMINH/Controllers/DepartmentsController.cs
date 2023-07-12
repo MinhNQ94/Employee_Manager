@@ -11,18 +11,18 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
     public class DepartmentsController : ControllerBase
     {
         /// <summary>
-        /// API lấy danh sách tất cả các vị trí
+        /// API lấy danh sách tất cả các phòng ban (Đã xong)
         /// </summary>
         /// <returns>Danh sách cả vị trí</returns>
         [HttpGet]
         [Route("")]
         public IActionResult GetAllDepartment()
         {
+            /// Khởi tạo kêt nối tới DB
+            string connectionString = "Server=localhost;Port=3306;Database=db.project;Uid=root;Pwd=12345678";
+            var mySqlConnection = new MySqlConnection(connectionString);
             try
             {
-                /// Khởi tạo kêt nối tới DB
-                string connectionString = "Server=localhost;Port=3306;Database=daotao.ai.2023.nqminh;Uid=root;Pwd=123456";
-                var mySqlConnection = new MySqlConnection(connectionString);
 
                 /// Chuẩn bị câu lệnh truy vấn
                 string getAllDepartmentsCommand = "SELECT * FROM department;";

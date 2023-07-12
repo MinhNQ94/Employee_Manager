@@ -302,11 +302,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Cài đặt\\Of Minh\\Of Minh\\Project Misa\\AMIS\\BACKEND\\DAOTAO.AI.2023.API.NQMINH\\DAOTAO.AI.2023.API.NQMINH.csproj",
+      "projectUniqueName": "C:\\Users\\Quang Minh\\Downloads\\NOP_BAI-20230630T034921Z-001\\NOP_BAI\\DAOTAO.AI.2023.NQMINH\\Code BackEnd\\DAOTAO.AI.2023.API.NQMINH\\DAOTAO.AI.2023.API.NQMINH.csproj",
       "projectName": "DAOTAO.AI.2023.API.NQMINH",
-      "projectPath": "D:\\Cài đặt\\Of Minh\\Of Minh\\Project Misa\\AMIS\\BACKEND\\DAOTAO.AI.2023.API.NQMINH\\DAOTAO.AI.2023.API.NQMINH.csproj",
+      "projectPath": "C:\\Users\\Quang Minh\\Downloads\\NOP_BAI-20230630T034921Z-001\\NOP_BAI\\DAOTAO.AI.2023.NQMINH\\Code BackEnd\\DAOTAO.AI.2023.API.NQMINH\\DAOTAO.AI.2023.API.NQMINH.csproj",
       "packagesPath": "C:\\Users\\Quang Minh\\.nuget\\packages\\",
-      "outputPath": "D:\\Cài đặt\\Of Minh\\Of Minh\\Project Misa\\AMIS\\BACKEND\\DAOTAO.AI.2023.API.NQMINH\\obj\\",
+      "outputPath": "C:\\Users\\Quang Minh\\Downloads\\NOP_BAI-20230630T034921Z-001\\NOP_BAI\\DAOTAO.AI.2023.NQMINH\\Code BackEnd\\DAOTAO.AI.2023.API.NQMINH\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Quang Minh\\AppData\\Roaming\\NuGet\\NuGet.Config",

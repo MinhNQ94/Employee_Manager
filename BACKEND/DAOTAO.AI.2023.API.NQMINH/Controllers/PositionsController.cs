@@ -11,7 +11,7 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
     public class PositionsController : ControllerBase
     {
         /// <summary>
-        /// API lấy danh sách tất cả các chức danh
+        /// API lấy danh sách tất cả các chức danh (Đã xong)
         /// </summary>
         /// <returns>Danh sách cả chức danh</returns>
         [HttpGet]
@@ -21,7 +21,7 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
             try
             {
                 /// Khởi tạo kêt nối tới DB
-                string connectionString = "Server=localhost;Port=3306;Database=daotao.ai.2023.nqminh;Uid=root;Pwd=123456";
+                string connectionString = "Server=localhost;Port=3306;Database=db.project;Uid=root;Pwd=12345678";
                 var mySqlConnection = new MySqlConnection(connectionString);
 
                 /// Chuẩn bị câu lệnh truy vấn

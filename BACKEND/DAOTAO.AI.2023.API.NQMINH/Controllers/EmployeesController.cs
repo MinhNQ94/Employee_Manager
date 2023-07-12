@@ -1,5 +1,4 @@
 ﻿using DAOTAO.AI._2023.API.NQMINH.Entities;
-using DAOTAO.AI._2023.API.NQMINH.Entities.Data_Tranfer_Object;
 using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +11,7 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
     public class EmployeesController : ControllerBase
     {
         /// <summary>
-        /// API lấy danh sách tất cả nhân viên
+        /// API lấy danh sách tất cả nhân viên (Đã xong)
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -22,7 +21,7 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
             try
             {
                 /// Khởi tạo kêt nối tới DB
-                string connectionString = "Server=18.179.16.166;Port=3306;Database=DAOTAO.AI.2023.NQMINH;Uid=nvmanh;Pwd=12345678";
+                string connectionString = "Server=localhost;Port=3306;Database=db.project;Uid=root;Pwd=12345678";
                 var mySqlConnection = new MySqlConnection(connectionString);
 
                 /// Chuẩn bị câu lệnh truy vấn
@@ -48,29 +47,29 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
             }
         }
         /// <summary>
-        /// Lấy ra thông tin chi tiết 1 nhân viên
+        /// Lấy ra thông tin chi tiết 1 nhân viên (Đã xong)
         /// </summary>
         /// <param name="employeeID"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{employeeID}")]
-        public IActionResult GetEmployeeByID([FromRoute] Guid employeeID)
+        [Route("{employeeCode}")]
+        public IActionResult GetEmployeeByCode([FromRoute] string? employeeCode)
         {
+            /// Khởi tạo kêt nối tới DB
+            string connectionString = "Server=localhost;Port=3306;Database=db.project;Uid=root;Pwd=12345678";
+            var mySqlConnection = new MySqlConnection(connectionString);
             try
             {
-                /// Khởi tạo kêt nối tới DB
-                string connectionString = "Server=18.179.16.166;Port=3306;Database=DAOTAO.AI.2023.NQMINH;Uid=nvmanh;Pwd=12345678";
-                var mySqlConnection = new MySqlConnection(connectionString);
-
-                /// Chuẩn bị câu lệnh truy vấn
-                string storedProcedureName = "SELECT * FROM employee WHERE EmployeeID = @EmployeeID;";
-
                 ///Chuẩn bị tham số đầu vào cho stored procedure
                 var parameters = new DynamicParameters();
-                parameters.Add("@EmployeeID", employeeID);
+
+                /// Chuẩn bị câu lệnh truy vấn
+                string storedProcedureName = "SELECT * FROM employee WHERE EmployeeCode = @EmployeeCode;";
+
+                parameters.Add("@EmployeeCode", employeeCode);
 
                 /// Thực hiện gọi vào DB để chạy câu lệnh truy vấn trên
-                var employee = mySqlConnection.QueryFirstOrDefault<Employee>(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                var employee = mySqlConnection.QueryFirstOrDefault<Employee>(storedProcedureName, parameters);
 
                 if (employee != null)
                 {
@@ -89,7 +88,7 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
             }
         }
         /// <summary>
-        /// API lọc danh sách nhân viên có điều kiện tìm kiếm và phân trang
+        /// API lọc danh sách nhân viên có điều kiện tìm kiếm và phân trang (Đã xong)
         /// </summary>
         /// <param name="keyword">Từ khoá muốn tìm kiếm</param>
         /// <param name="positionID">ID chức danh</param>
@@ -101,17 +100,16 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
         [Route("filter")]
         public IActionResult FilterEmployees(
             [FromQuery] string? keyword,
-            [FromQuery] Guid? positionID,
-            [FromQuery] Guid? departmentID,
-            [FromQuery] int pageSize = 10,
-            [FromQuery] int pageNumber = 1)
+            [FromQuery] string? positionName,
+            [FromQuery] string? departmentName,
+            [FromQuery] int? pageSize = 10,
+            [FromQuery] int? pageNumber = 1)
         {
+            /// Khởi tạo kết nối tới DB MySQL
+            string connectionString = "Server=localhost;Port=3306;Database=db.project;Uid=root;Pwd=12345678";
+            var mySqlConnection = new MySqlConnection(connectionString);
             try
             {
-                /// Khởi tạo kết nối tới DB MySQL
-                string connectionString = "Server=18.179.16.166;Port=3306;Database=DAOTAO.AI.2023.NQMINH;Uid=nvmanh;Pwd=12345678";
-                var mySqlConnection = new MySqlConnection(connectionString);
-
                 ///Chuẩn bị tên stored procedure
                 string storedProcedureName = "Proc_employee_GetPaging";
 
@@ -119,7 +117,7 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
                 var parameters = new DynamicParameters();
                 parameters.Add("@v_Offset", (pageNumber - 1) * pageSize);
                 parameters.Add("@v_Limit", pageSize);
-                parameters.Add("@v_Sort", "ModifiedDate DESC");
+                parameters.Add("@v_Sort", "");
 
                 /// Xây dựng câu lệnh where
                 var orConditions = new List<string>();
@@ -130,20 +128,19 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
                 {
                     orConditions.Add($"EmployeeCode LIKE '%{keyword}%'");
                     orConditions.Add($"EmployeeName LIKE '%{keyword}%'");
-                    orConditions.Add($"MobilePhone LIKE '%{keyword}%'");
                 }
                 if (orConditions.Count > 0)
                 {
                     whereClause = $"({string.Join(" OR ", orConditions)})";
                 }
 
-                if (positionID != null)
+                if (positionName != null)
                 {
-                    andConditions.Add($"PositionID LIKE '%{positionID}%'");
+                    andConditions.Add($"PositionName LIKE '%{positionName}%'");
                 }
-                if (departmentID != null)
+                if (departmentName != null)
                 {
-                    andConditions.Add($"DepartmentID LIKE '%{departmentID}%'");
+                    andConditions.Add($"DepartmentName LIKE '%{departmentName}%'");
                 }
 
                 if (andConditions.Count > 0)
@@ -160,8 +157,8 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
                 if (multipleResults != null)
                 {
                     var employees = multipleResults.Read<Employee>().ToList();
-                    var totalCount = multipleResults.Read<long>().Single();
-                    return StatusCode(StatusCodes.Status200OK, new PagingData<Employee>()
+                    var totalCount = multipleResults.Read<int>().Single();
+                    return StatusCode(StatusCodes.Status200OK, new PagingData()
                     {
                         Data = employees,
                         TotalCount = totalCount
@@ -179,23 +176,26 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
             }
         }
         /// <summary>
-        /// API thêm mới 1 nhân viên
+        /// API thêm mới 1 nhân viên (Đã xong)
         /// </summary>
         /// <param name="employee">Đối tượng nhân viên cần thêm mới</param>
         /// <returns></returns>
         [HttpPost]
+        [Route("")]
         public IActionResult InsertEmployee([FromBody] Employee employee)
         {
+            string connectionString = "Server=localhost;Port=3306;Database=db.project;Uid=root;Pwd=12345678";
+            var mySqlConnection = new MySqlConnection(connectionString);
             try
             {
-                string connectionString = "Server=18.179.16.166;Port=3306;Database=DAOTAO.AI.2023.NQMINH;Uid=nvmanh;Pwd=12345678";
-                var mySqlConnection = new MySqlConnection(connectionString);
 
-                string insertEmployeeCommand = "INSERT INTO employee (EmployeeID, EmployeeCode, EmployeeName, Gender, DateOfBirth, IdentityNumber, IdentityIssuedDate, IdentityIssuedPlace, DepartmentID, DepartmentName, PositionID, PositionName, MobilePhone, Telephone, Address, Email, BankAccount, BankName, Branch, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate) VALUES (@EmployeeID, @EmployeeCode, @EmployeeName, @Gender, @DateOfBirth, @IdentityNumber, @IdentityIssuedDate, @IdentityIssuedPlace, @DepartmentID, @DepartmentName, @PositionID, @PositionName, @MobilePhone, @Telephone, @Address, @Email, @BankAccount, @BankName, @Branch, @CreatedBy, @CreatedDate, @ModifiedBy, @ModifiedDate)";
+                string insertEmployeeCommand = "INSERT INTO employee (EmployeeCode, EmployeeName, Gender," +
+                    " DateOfBirth, IdentityNumber, IdentityIssuedDate, IdentityIssuedPlace, DepartmentCode," +
+                    " DepartmentName, PositionCode, PositionName, MobilePhone, Telephone, Address, Email, BankAccount," + 
+                    " BankName, Branch) VALUES (@EmployeeCode, @EmployeeName, @Gender, @DateOfBirth, @IdentityNumber, @IdentityIssuedDate," +
+                    " @IdentityIssuedPlace, @DepartmentCode, @DepartmentName, @PositionCode, @PositionName, @MobilePhone, @Telephone, @Address, @Email, @BankAccount, @BankName, @Branch);";
 
-                var employeeID = Guid.NewGuid();
                 var parameters = new DynamicParameters();
-                parameters.Add("@EmployeeID", employeeID);
                 parameters.Add("@EmployeeCode", employee.EmployeeCode);
                 parameters.Add("@EmployeeName", employee.EmployeeName);
                 parameters.Add("@Gender", employee.Gender);
@@ -203,9 +203,9 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
                 parameters.Add("@IdentityNumber", employee.IdentityNumber);
                 parameters.Add("@IdentityIssuedDate", employee.IdentityIssuedDate);
                 parameters.Add("@IdentityIssuedPlace", employee.IdentityIssuedPlace);
-                parameters.Add("@DepartmentID", employee.DepartmentID);
+                parameters.Add("@DepartmentCode", employee.DepartmentCode);
                 parameters.Add("@DepartmentName", employee.DepartmentName);
-                parameters.Add("@PositionID", employee.PositionID);
+                parameters.Add("@PositionCode", employee.PositionCode);
                 parameters.Add("@PositionName", employee.PositionName);
                 parameters.Add("@MobilePhone", employee.MobilePhone);
                 parameters.Add("@Telephone", employee.Telephone);
@@ -214,25 +214,22 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
                 parameters.Add("@BankAccount", employee.BankAccount);
                 parameters.Add("@BankName", employee.BankName);
                 parameters.Add("@Branch", employee.Branch);
-                parameters.Add("@CreatedBy", employee.CreatedBy);
-                parameters.Add("@CreatedDate", employee.CreatedDate);
-                parameters.Add("@ModifiedBy", employee.ModifiedBy);
-                parameters.Add("@ModifiedDate", employee.ModifiedDate);
 
                 int numberOfAffectedRows = mySqlConnection.Execute(insertEmployeeCommand, parameters);
 
                 if (numberOfAffectedRows > 0)
                 {
-                    return StatusCode(StatusCodes.Status201Created, employeeID);
+                    return StatusCode(StatusCodes.Status201Created, employee.EmployeeCode);
                 }
                 else
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, "e002");
                 }
             }
-            catch (MySqlException ex)
+            catch (MySqlException mysqlException)
             {
-                if (ex.Number == (int)MySqlErrorCode.DuplicateKeyEntry)
+                ///Trùng mã nhân viên
+                if (mysqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, "e003");
                 }
@@ -248,35 +245,38 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
             }
         }
         /// <summary>
-        /// API sửa 1 nhân viên
+        /// API sửa 1 nhân viên (Đã xong)
         /// </summary>
         /// <param name="employee">Đối tượng nhân viên cần sửa</param>
         /// <param name="employeeID">ID của nhân viên cần sửa</param>
         /// <returns></returns>
 
         [HttpPut]
-        [Route("{employeeID}")]
-        public IActionResult UpdateEmployee([FromRoute] Guid employeeID, [FromBody] Employee employee)
+        [Route("{employeeCode}")]
+        public IActionResult UpdateEmployee([FromRoute] string? employeeCode, [FromBody] Employee employee)
         {
-            string connectionString = "Server=18.179.16.166;Port=3306;Database=DAOTAO.AI.2023.NQMINH;Uid=nvmanh;Pwd=12345678";
+            string connectionString = "Server=localhost;Port=3306;Database=db.project;Uid=root;Pwd=12345678";
             var mySqlConnection = new MySqlConnection(connectionString);
             try
             {
-                string updateEmployeeCommand = "UPDATE employee e SET EmployeeCode = @EmployeeCode, EmployeeName = @EmployeeName, Gender = @Gender, DateOfBirth = @DateOfBirth, IdentityNumber = @IdentityNumber, IdentityIssuedDate = @IdentityIssuedDate, IdentityIssuedPlace = @IdentityIssuedPlace, DepartmentID = @DepartmentID, DepartmentName = @DepartmentName, PositionID = @PositionID, PositionName = @PositionName, MobilePhone = @MobilePhone, Telephone = @Telephone, Address = @Address, Email = @Email, BankAccount = @BankAccount, BankName = @BankName, Branch = @Branch, CreatedBy = @CreatedBy, CreatedDate = @CreatedDate, ModifiedBy = @ModifiedBy, ModifiedDate = @ModifiedDate WHERE EmployeeID = @EmployeeID";
+                string updateEmployeeCommand = "UPDATE employee e SET EmployeeCode = @newEmployeeCode, EmployeeName = @EmployeeName," + 
+                    " Gender = @Gender, DateOfBirth = @DateOfBirth, IdentityNumber = @IdentityNumber, IdentityIssuedDate = @IdentityIssuedDate," + 
+                    " IdentityIssuedPlace = @IdentityIssuedPlace, DepartmentCode = @DepartmentCode, DepartmentName = @DepartmentName," + 
+                    " PositionCode = @PositionCode, PositionName = @PositionName, MobilePhone = @MobilePhone, Telephone = @Telephone," + 
+                    " Address = @Address, Email = @Email, BankAccount = @BankAccount, BankName = @BankName, Branch = @Branch WHERE EmployeeCode = @EmployeeCode;";
 
-                var employeeId = Guid.NewGuid();
                 var parameters = new DynamicParameters();
-                parameters.Add("@EmployeeID", employeeId);
-                parameters.Add("@EmployeeCode", employee.EmployeeCode);
+                parameters.Add("@EmployeeCode", employeeCode);
+                parameters.Add("@newEmployeeCode", employee.EmployeeCode);
                 parameters.Add("@EmployeeName", employee.EmployeeName);
                 parameters.Add("@Gender", employee.Gender);
                 parameters.Add("@DateOfBirth", employee.DateOfBirth);
                 parameters.Add("@IdentityNumber", employee.IdentityNumber);
                 parameters.Add("@IdentityIssuedDate", employee.IdentityIssuedDate);
                 parameters.Add("@IdentityIssuedPlace", employee.IdentityIssuedPlace);
-                parameters.Add("@DepartmentID", employee.DepartmentID);
+                parameters.Add("@DepartmentCode", employee.DepartmentCode);
                 parameters.Add("@DepartmentName", employee.DepartmentName);
-                parameters.Add("@PositionID", employee.PositionID);
+                parameters.Add("@PositionCode", employee.PositionCode);
                 parameters.Add("@PositionName", employee.PositionName);
                 parameters.Add("@MobilePhone", employee.MobilePhone);
                 parameters.Add("@Telephone", employee.Telephone);
@@ -285,30 +285,18 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
                 parameters.Add("@BankAccount", employee.BankAccount);
                 parameters.Add("@BankName", employee.BankName);
                 parameters.Add("@Branch", employee.Branch);
-                parameters.Add("@CreatedBy", employee.CreatedBy);
-                parameters.Add("@CreatedDate", employee.CreatedDate);
-                parameters.Add("@ModifiedBy", employee.ModifiedBy);
-                parameters.Add("@ModifiedDate", employee.ModifiedDate);
 
                 int numberOfAffectedRows = mySqlConnection.Execute(updateEmployeeCommand, parameters);
 
                 /// Xử lý kq trả về từ DB
                 if (numberOfAffectedRows > 0)
                 {
-                    return StatusCode(StatusCodes.Status201Created, employeeId);
+                    return StatusCode(StatusCodes.Status200OK, employee);
                 }
                 else
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, "e002");
                 }
-            }
-            catch (MySqlException mySqlException)
-            {
-                if (mySqlException.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, "e003");
-                }
-                return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
             catch (Exception exception)
             {
@@ -319,15 +307,37 @@ namespace DAOTAO.AI._2023.API.NQMINH.Controllers
 
         }
         /// <summary>
-        /// API xoá 1 nhân viên
+        /// API xoá 1 nhân viên (đã xong)
         /// </summary>
         /// <param name="employeeID">ID của nhân viên muốn xoá</param>
         /// <returns>ID của nhân viên vừa xoá</returns>
         [HttpDelete]
-        [Route("{employeeID}")]
-        public IActionResult DeleteEmployee([FromRoute] Guid employeeID)
+        [Route("Delete")]
+        public IActionResult DeleteEmployee([FromQuery] string? employeeCode)
         {
-            return StatusCode(StatusCodes.Status200OK, employeeID);
+            string connectionString = "Server=localhost;Port=3306;Database=db.project;Uid=root;Pwd=12345678";
+            var mySqlConnection = new MySqlConnection(connectionString);
+            try
+            {
+                var parameters = new DynamicParameters();
+                string delCommand = "DELETE FROM employee WHERE EmployeeCode = @EmployeeCode;";
+                parameters.Add("@EmployeeCode", employeeCode);
+                int numberOfAffectedRows = mySqlConnection.Execute(delCommand, parameters);
+
+                if (numberOfAffectedRows > 0)
+                {
+                    return StatusCode(StatusCodes.Status200OK, "Đã xoá thành công nhân viên");
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
         }
     }
 }
